@@ -31,14 +31,26 @@ class Adminuser extends \yii\db\ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
+    /**
+     * @return array
+     */
     public static function allStatus()
     {
         return [self::STATUS_ACTIVE=>'正常',self::STATUS_DELETED=>'禁用'];
     }
 
+    /**
+     * @return string
+     */
     public function getStatusStr()
     {
         return $this->status==self::STATUS_ACTIVE?'正常':'禁用';
+    }
+
+    public static function findByUsername($username)
+    {
+
+        return static::findOne(['username'=>$username,'status'=>self::STATUS_ACTIVE]);
     }
 
 
@@ -116,6 +128,17 @@ class Adminuser extends \yii\db\ActiveRecord implements IdentityInterface
         } else {
             return false;
         }
+    }
+
+
+    /**
+     * Validate password
+     * @param $password
+     * @return bool
+     */
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password,$this->password_hash);
     }
 
 

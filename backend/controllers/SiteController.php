@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\AdminLoginForm;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -12,9 +13,12 @@ use common\models\LoginForm;
  */
 class SiteController extends Controller
 {
+
+
     /**
      * {@inheritdoc}
      */
+
     public function behaviors()
     {
         return [
@@ -40,6 +44,7 @@ class SiteController extends Controller
             ],
         ];
     }
+
 
     /**
      * {@inheritdoc}
@@ -74,8 +79,9 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new AdminLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
             return $this->goBack();
         } else {
             $model->password = '';
