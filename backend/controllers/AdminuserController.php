@@ -2,10 +2,12 @@
 
 namespace backend\controllers;
 
+use backend\models\ResetPasswordForm;
 use backend\models\SignupForm;
 use Yii;
 use common\models\Adminuser;
 use common\models\AdminuserSearch;
+use yii\bootstrap\Modal;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -79,12 +81,30 @@ class AdminuserController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
-                return $this->redirect(['view','id'=>$user->id]);
+                return $this->redirect(['view', 'id' => $user->id]);
             }
         }
-        return $this->render('create',[
-            'model'=>$model,
+        return $this->render('create', [
+            'model' => $model,
         ]);
+    }
+
+
+    public function actionResetpwd($id)
+    {
+        $userRealName=$this->findModel($id)->realname;
+        $model = new ResetPasswordForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->resetPassword($id)) {
+                Yii::$app->getSession()->addFlash('success', $userRealName.'：'.'密码修改成功！');
+                return $this->redirect(['index']);
+            }
+        }
+        return $this->render('resetpwd', [
+            'model' => $model,
+            'userRealName' => $userRealName,
+        ]);
+
     }
 
     /**
