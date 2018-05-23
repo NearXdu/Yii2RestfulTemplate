@@ -8,30 +8,50 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="article-form">
 
+<div class="article-form">
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'category_id')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="title-filed">
+        <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <div class="content-filed">
+        
+        <?= $form->field($model, 'content')
+            ->textarea(['placeholder'=>'请输入文章内容...','class'=>'col-xs-6' ,'rows' => 10, 'id' => 'text-input', 'oninput' => 'this.editor.update()'])
+            ->label(false)
+           ?>
 
-</div>
+
+        <div class="col-xs-6" id="preview"><div/>
+
+        </div>
+
+
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
+    </div>
+
+        <?php ActiveForm::end(); ?>
+
+
+
+    <script src="markdown.js"></script>
+    <script>
+        function Editor(input, preview) {
+            this.update = function () {
+                preview.innerHTML = markdown.toHTML(input.value);
+            };
+            input.editor = this;
+            console.log(preview.innerHTML);
+            this.update();
+        }
+
+        var $ = function (id) {
+            return document.getElementById(id);
+        };
+        new Editor($("text-input"), $("preview"));
+    </script>
+

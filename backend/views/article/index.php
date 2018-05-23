@@ -7,17 +7,15 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Articles';
+$this->title = '文章管理';
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['createString'] = '<a href="'.Yii::$app->urlManager->createUrl(['article/create']).'"><i class=" fa fa-fw fa-plus-circle"></i></a>';
+
 ?>
 <div class="article-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Article', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

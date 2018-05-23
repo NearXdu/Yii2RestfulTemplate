@@ -92,11 +92,11 @@ class AdminuserController extends Controller
 
     public function actionResetpwd($id)
     {
-        $userRealName=$this->findModel($id)->realname;
+        $userRealName = $this->findModel($id)->realname;
         $model = new ResetPasswordForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($model->resetPassword($id)) {
-                Yii::$app->getSession()->addFlash('success', $userRealName.'：'.'密码修改成功！');
+                Yii::$app->getSession()->addFlash('success', $userRealName . '：' . '密码修改成功！');
                 return $this->redirect(['index']);
             }
         }
@@ -136,7 +136,12 @@ class AdminuserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
+
+
+        Yii::$app->getSession()->addFlash('success', '删除成功');
+
 
         return $this->redirect(['index']);
     }
