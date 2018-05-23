@@ -11,7 +11,9 @@ use yii\grid\GridView;
 $this->title = '管理员用户';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->params['createString'] = '<a href="' . Yii::$app->urlManager->createUrl(['adminuser/create']) . '"><i class=" fa fa-fw fa-plus-circle"></i></a>';
+$this->params['createString'] = '<a href="'.Yii::$app->urlManager->createUrl(['adminuser/create']).'"><i class=" fa fa-fw fa-plus-circle"></i></a>';
+
+
 
 ?>
 <div class="adminuser-index">

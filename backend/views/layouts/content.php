@@ -18,6 +18,7 @@ use dmstr\widgets\Alert;
                     );
                     echo ($this->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';
                 } ?>
+                <?= isset($this->params['createString']) ? $this->params['createString']:'';?>
             </h1>
         <?php } ?>
 
