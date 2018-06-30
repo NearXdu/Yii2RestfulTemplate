@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
@@ -9,9 +9,9 @@ use yii\widgets\ActiveForm;
 ?>
 
 
-<div class="article-form">
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
 
+<div class="article-form">
     <div class="title-filed">
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     </div>
@@ -19,23 +19,25 @@ use yii\widgets\ActiveForm;
     <div class="content-filed">
 
         <?= $form->field($model, 'content')
-            ->textarea(['placeholder'=>'请输入文章内容...','class'=>'col-xs-6' ,'rows' => 10, 'id' => 'text-input', 'oninput' => 'this.editor.update()'])
+            ->textarea(['placeholder' => '请输入文章内容...', 'rows' => 10, 'id' => 'text-input', 'oninput' => 'this.editor.update()'])
             ->label(false)
-           ?>
+        ?>
+
+        <h4>预览</h4>
 
 
-        <div class="col-xs-6" id="preview"><div/>
+        <div id="preview">
+            <div/>
 
-        </div>
 
-
-        <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
         </div>
     </div>
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    </div>
 
-        <?php ActiveForm::end(); ?>
 
+    <?php ActiveForm::end(); ?>
 
 
     <script src="markdown.js"></script>

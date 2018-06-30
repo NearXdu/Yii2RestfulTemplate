@@ -20,6 +20,21 @@ use Yii;
  */
 class Article extends \yii\db\ActiveRecord
 {
+    const STATUS_DRAFT = 0;
+    const STATUS_PUBLISHED = 10;
+
+
+    /**
+     * @return array
+     */
+    public static function allStatus()
+    {
+        return [
+            self::STATUS_DRAFT => '草稿',
+            self::STATUS_PUBLISHED => '已发布',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
