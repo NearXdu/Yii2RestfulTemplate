@@ -49,7 +49,6 @@ class Adminuser extends \yii\db\ActiveRecord implements IdentityInterface
 
     public static function findByUsername($username)
     {
-
         return static::findOne(['username'=>$username,'status'=>self::STATUS_ACTIVE]);
     }
 

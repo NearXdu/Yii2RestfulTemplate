@@ -1,10 +1,11 @@
 <?php
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
+/* @var $model \common\models\AdminLoginForm */
 
 $this->title = 'Sign In';
 
@@ -19,6 +20,7 @@ $fieldOptions2 = [
 ];
 ?>
 
+
 <div class="login-box">
     <div class="login-logo">
         <a href="#"><b>API</b> Template</a>
@@ -28,6 +30,8 @@ $fieldOptions2 = [
         <p class="login-box-msg">Sign in to start your session</p>
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
+
+
 
         <?= $form
             ->field($model, 'username', $fieldOptions1)

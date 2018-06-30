@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="content-filed">
-        
+
         <?= $form->field($model, 'content')
             ->textarea(['placeholder'=>'请输入文章内容...','class'=>'col-xs-6' ,'rows' => 10, 'id' => 'text-input', 'oninput' => 'this.editor.update()'])
             ->label(false)
