@@ -23,6 +23,27 @@ class Article extends \yii\db\ActiveRecord
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 10;
 
+    private static $cateStrArray=[
+        1=>'前端',
+        2=>'后台',
+        3=>'游戏',
+        4=>'运维',
+    ];
+
+    /**
+     * @return array
+     */
+    public static function allCategory(){
+        return self::$cateStrArray;
+    }
+
+    /**
+     * @param $categroy_id
+     * @return mixed
+     */
+    public function getCateStr(){
+        return self::$cateStrArray[$this->category_id];
+    }
 
     /**
      * @return array
@@ -33,6 +54,10 @@ class Article extends \yii\db\ActiveRecord
             self::STATUS_DRAFT => '草稿',
             self::STATUS_PUBLISHED => '已发布',
         ];
+    }
+    public function getStatusStr()
+    {
+        return $this->status==self::STATUS_PUBLISHED?'已发布':'草稿';
     }
 
     /**
@@ -49,11 +74,10 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'title', 'content'], 'required'],
-            [['id', 'category_id', 'status', 'created_by', 'created_at', 'updated_at'], 'integer'],
+            [['title', 'content'], 'required'],
+            [['category_id', 'status', 'created_by', 'created_at', 'updated_at'], 'integer'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 512],
-            [['id'], 'unique'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Adminuser::className(), 'targetAttribute' => ['created_by' => 'id']],
         ];
     }
@@ -82,4 +106,34 @@ class Article extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Adminuser::className(), ['id' => 'created_by']);
     }
+
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if(parent::beforeSave($insert))
+        {
+            if($insert)
+            {
+                $this->created_at = time();
+                $this->updated_at = time();
+                $this->created_by = Yii::$app->user->identity->id;
+            }
+            else
+            {
+                $this->updated_at = time();
+            }
+
+            return true;
+
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

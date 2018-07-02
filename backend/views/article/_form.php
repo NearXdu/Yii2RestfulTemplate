@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Article;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -28,12 +29,14 @@ use yii\bootstrap\ActiveForm;
 
         <div id="preview">
             <div/>
-
-
         </div>
     </div>
+    <?=$form->field($model,'category_id')->dropDownList(Article::allCategory()
+        ,['prompt'=>'请选择文章分类'])?>
+    <?=$form->field($model,'status')->dropDownList(Article::allStatus()
+        ,['prompt'=>'请选择文章状态'])?>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
     </div>
 
 
