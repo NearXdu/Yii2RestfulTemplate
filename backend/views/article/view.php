@@ -7,19 +7,17 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Article */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '文章管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('更新', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('删除', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '确认删除这篇文章吗？',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,14 +26,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+
             'title',
             'content:ntext',
-            'category_id',
-            'status',
-            'created_by',
-            'created_at',
-            'updated_at',
+
+            [
+                'attribute' => 'category_id',
+                'value' => $model->CateStr,
+            ],
+            [
+                'attribute' => 'status',
+                'value' => $model->StatusStr,
+            ],
+            [
+                'attribute' => 'created_by',
+                'value' => $model->createdBy->realname,
+            ],
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'php:Y-m-d H:i:s'],
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => date('Y-m-d H:i:s', $model->updated_at),
+            ],
+
+
         ],
     ]) ?>
 

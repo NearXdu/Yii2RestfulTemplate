@@ -89,6 +89,7 @@ class ArticleController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->addFlash('success', '文章修改成功！');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -107,6 +108,7 @@ class ArticleController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        Yii::$app->getSession()->addFlash('success', '删除成功');
 
         return $this->redirect(['index']);
     }
